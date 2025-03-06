@@ -5,9 +5,13 @@ import DisplayUser from '../Components/Interface';
 const usePeopleApi = () => {
   const [user, setUser] = useState<DisplayUser | null>(null);
   const [activeIcon, setActiveIcon] = useState("user");
+  const [Loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch("https://randomuser.me/api/");
         if (!response.ok) {
@@ -18,6 +22,9 @@ const usePeopleApi = () => {
       } catch (error) {
         console.error("Error fetching user data:", error);
         setUser(null);
+      }
+      finally {
+        setLoading(false);
       }
     };
 

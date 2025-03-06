@@ -1,5 +1,4 @@
 'use client';
-import DisplayUser from './Components/Interface';
 import usePeopleApi from './hooks/usePeopleApi';
   
 
@@ -9,16 +8,16 @@ export default function Home() {
   const { user, activeIcon, setActiveIcon } = usePeopleApi();
 
   return (
-    <div className="flex flex-col items-center bg-gray-100 p-8 rounded-lg shadow-md w-96 mx-auto mt-10">
+    <div className="flex flex-col items-center bg-white bg-opacity-100 p-8 rounded-lg shadow-md w-96 mx-auto mt-10">
       {user ? (
         <>
           <img
             src={user.results[0].picture.large}
             alt="User"
-            className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+            className="w-48 h-48 rounded-full border-4 border-white shadow-lg"
           />
 
-          <p className="text-gray-500 mt-4">
+          <p className="mt-4 text-black-600">
             {activeIcon === "user" && "Hi, My name is"}
             {activeIcon === "email" && "My email address is"}
             {activeIcon === "dob" && "My birth date is"}
@@ -78,7 +77,7 @@ export default function Home() {
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <p>Loading user data...</p>
       )}
     </div>
   );
