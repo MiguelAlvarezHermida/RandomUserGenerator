@@ -6,7 +6,7 @@ const usePeopleApi = () => {
   const [user, setUser] = useState<DisplayUser | null>(null);
   const [activeIcon, setActiveIcon] = useState("user");
   const [Loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<{ message: string } | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,7 +31,6 @@ const usePeopleApi = () => {
     fetchUser();
   }, []);
 
-  return { user, activeIcon, setActiveIcon };
-};
-
+  return { user, activeIcon, setActiveIcon, Loading, error};
+}
 export default usePeopleApi;

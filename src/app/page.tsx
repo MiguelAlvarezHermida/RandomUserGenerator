@@ -1,11 +1,16 @@
 'use client';
 import usePeopleApi from './hooks/usePeopleApi';
-  
-
 
 export default function Home() {
-  
-  const { user, activeIcon, setActiveIcon } = usePeopleApi();
+  const { user, activeIcon, setActiveIcon, Loading, error } = usePeopleApi();
+
+  if (Loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="flex flex-col items-center bg-white bg-opacity-100 p-8 rounded-lg shadow-md w-96 mx-auto mt-10">
@@ -17,7 +22,7 @@ export default function Home() {
             className="w-48 h-48 rounded-full border-4 border-white shadow-lg"
           />
 
-          <p className="mt-4 text-black-600">
+          <p className="mt-4 text-gray-600">
             {activeIcon === "user" && "Hi, My name is"}
             {activeIcon === "email" && "My email address is"}
             {activeIcon === "dob" && "My birth date is"}
@@ -38,42 +43,15 @@ export default function Home() {
           </h2>
 
           <div className="flex mt-6 space-x-6">
-            <img
-              src="/favicon.ico"
-              alt="User Icon"
-              className={`w-6 h-6 ${activeIcon === "user" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("user")}
-            />
-            <img
-              src="/favicon.ico"
-              alt="Email Icon"
-              className={`w-6 h-6 ${activeIcon === "email" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("email")}
-            />
-            <img
-              src="/favicon.ico"
-              alt="DOB Icon"
-              className={`w-6 h-6 ${activeIcon === "dob" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("dob")}
-            />
-            <img
-              src="/favicon.ico"
-              alt="Location Icon"
-              className={`w-6 h-6 ${activeIcon === "location" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("location")}
-            />
-            <img
-              src="/favicon.ico"
-              alt="Phone Icon"
-              className={`w-6 h-6 ${activeIcon === "phone" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("phone")}
-            />
-            <img
-              src="/favicon.ico"
-              alt="Password Icon"
-              className={`w-6 h-6 ${activeIcon === "password" ? "opacity-100" : "opacity-50"}`}
-              onMouseEnter={() => setActiveIcon("password")}
-            />
+            {["user", "email", "dob", "location", "phone", "password"].map((icon) => (
+              <img
+                key={icon}
+                src="/favicon.ico"
+                alt={`${icon} Icon`}
+                className={`w-6 h-6 ${activeIcon === icon ? "opacity-100" : "opacity-50"}`}
+                onMouseEnter={() => setActiveIcon(icon)}
+              />
+            ))}
           </div>
         </>
       ) : (
@@ -81,4 +59,4 @@ export default function Home() {
       )}
     </div>
   );
-};
+}

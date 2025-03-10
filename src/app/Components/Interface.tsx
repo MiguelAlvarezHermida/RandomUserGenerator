@@ -1,4 +1,4 @@
- export default interface DisplayUser {
+export default interface DisplayUser {
     results: {
       gender: string;
       name: {
